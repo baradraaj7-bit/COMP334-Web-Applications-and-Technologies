@@ -1,0 +1,21 @@
+<?php
+session_start();
+require_once "dbcomfig.in.php";
+require_once "tiket";
+$costomar_id=$_SESSION["costomr_id"];
+
+$sql="SELECT * FROM titket WHERE coustomer_id=:coustomer_id";
+
+$Params=[":costomer_id","$coustemr_id"];
+
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+ if(!empty($_POST["name"])){
+    $sql .="AND name LIKE :name";
+    $Params=[":name"]=% . $_POST["name"] . %;
+ }
+
+
+ $stmt=$PDO->Prepare($sql);
+ $stmt ->execute($Params);
+ exit();
+}

@@ -1,0 +1,26 @@
+<?php
+
+session_start();
+require_once "dbconfig.in.php";
+require_once "ticket.php";
+
+$costomar_id=$_SESSION["costomar_id"];
+$sql="SELECT * FROM ticket WHERE costomer_id=:costomar_id";
+
+if($_SERVER["REQUEST_METHOD"]=="post"){
+
+ if(!empty($_POST["baraa"])){
+    $sql.="AND baraa LIKE :baraa";
+    $Params["baraa"]="%" . $_POST["baraa"] ."%";
+ }
+ if(!empty($_POST["smat"])){
+    $sql. ="AND smat LIKE :smat";
+    $Params[":smat"]="%" . $_POST["smat"] . "%";
+ }
+
+
+
+}
+
+$stmt=$PDO ->perpart($sql);
+$stmt ->excute();

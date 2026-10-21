@@ -1,0 +1,54 @@
+<?php
+session_start();
+REQUIRE_ONCE "dbconfig.in.php";
+$erorr="";
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+
+   $email=$_POST["email"];
+   $password=$_POST["password"];
+
+   $sql="SELECT * FROM user WHERE email=:email";
+   $stmt=$PDO ->prepare($sql);
+   $stmt ->bindParam(":email",$email);
+   $stmt ->execute();
+
+   $user=$stmt->fetch([PDO::FETCH_ASOSS]);
+   if($user && password_verify($password,$user["password"])){
+    $_SESSION["id"]=$user["id"];
+    $_SESSION["name"]=$user["name"];
+
+    header("Location:hjdsh.php");
+    exit();
+   }
+   else{
+    $erorr="invalt password or email";
+   }
+}
+?>
+<!DOCTYPE html>
+<html lamg="en">
+<head>
+    <meta charset="UTF-8">
+    <title>meooooo</title>
+</head>
+
+<body>
+    <header>
+        <h1>hjhguigui</h1>
+</header>
+<main>
+    <form action="loogin.php" method="post">
+
+    <label for="email" name="email">
+    <input type="email" name="email" id="email" plaseholder="entr">
+
+    <label for="password" name="password">
+    <input type="password" name="password" id="passeord" plaseholder="entr">
+
+    <input type="submit" value="jioj">
+
+</form>
+
+</main>
+</body>
+</html>
